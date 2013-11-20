@@ -1,0 +1,15 @@
+{
+    "name": "jkobus/posnet-thermal",
+    "description": "PHP library for handling fiscal printers using POSNET THERMAL protocol",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Jacek Kobus",
+            "email": "kobus.jacek@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+
+    }
+}
