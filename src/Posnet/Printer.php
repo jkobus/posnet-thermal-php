@@ -3,12 +3,13 @@
 namespace Posnet;
 
 use Posnet\Adapter\AdapterInterface;
+use Posnet\Transport\TransportAwareInterface;
 use Posnet\Transport\TransportInterface;
 
 /**
  * Represent the printer
  */
-class Printer
+class Printer implements TransportAwareInterface
 {
     /**
      * @var AdapterInterface
@@ -33,11 +34,14 @@ class Printer
      */
     public function getAdapter()
     {
+        if($this->adapter !== null && $this->getTransport() !== null){
+            $this->adapter->setTransport($this->getTransport());
+        }
         return $this->adapter;
     }
 
     /**
-     * @param \Posnet\Transport\TransportInterface $transport
+     * {@inheritdoc}
      */
     public function setTransport(TransportInterface $transport)
     {
@@ -53,10 +57,63 @@ class Printer
     }
 
     /**
-     * @param PrintableInterface $entity
+     * Tell if printer is online
+     *
+     * @return bool
      */
-    public function doPrint(PrintableInterface $entity)
+    public function isOnline()
     {
+        return $this->getAdapter()->isOnline();
+    }
 
+    /**
+     * Tell if printer is ready to work
+     *
+     * @return bool
+     */
+    public function isReady()
+    {
+        return $this->getAdapter()->isReady();
+    }
+
+    /**
+     * Tell if printer is busy doing transaction
+     *
+     * @return bool
+     */
+    public function isBusy()
+    {
+        return $this->getAdapter()->isBusy();
+    }
+
+    /**
+     * Printer is processing REAL transactions
+     *
+     * @return bool
+     */
+    public function isInFiscalMode()
+    {
+        return $this->getAdapter()->isInFiscalMode();
+    }
+
+    /**
+     * Printer is in test mode
+     *
+     * @return bool
+     */
+    public function isInTestMode()
+    {
+        return $this->getAdapter()->isInTestMode();
+    }
+
+    /**
+     * Transform and send given entity to the printer
+     *
+     * @param PrintableInterface $printable
+     * @return void
+     */
+    public function doPrint(PrintableInterface $printable)
+    {
+        $printable->doPrint($this->getAdapter());
     }
 }

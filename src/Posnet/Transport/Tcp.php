@@ -3,7 +3,7 @@
 namespace Posnet\Transport;
 
 /**
- * Enables transport of packets to a remote printer
+ * Enables transport of packets to a printer through tcp
  */
 class Tcp implements TransportInterface
 {
@@ -41,5 +41,13 @@ class Tcp implements TransportInterface
     public function receive()
     {
 
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setTimeout()
+    {
+        // TODO: Implement setTimeout() method.
     }
 }

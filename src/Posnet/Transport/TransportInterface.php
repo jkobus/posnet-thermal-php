@@ -3,10 +3,18 @@
 namespace Posnet\Transport;
 
 /**
- * Enables transport of packets to a remote printer
+ * Enables transport of packets to a printer
  */
 interface TransportInterface
 {
+    /**
+     * Set timeout in seconds after which the transport
+     * will give up on sending the data
+     *
+     * @return int
+     */
+    public function setTimeout();
+
     /**
      * Receive data from a printer
      *

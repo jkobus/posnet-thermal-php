@@ -4,11 +4,9 @@ namespace Posnet\Adapter;
 
 use Posnet\Transport\TransportInterface;
 
-/**
- * Thermal Protocol Adapter v 2.x ?
- */
-class Thermal implements AdapterInterface
+class Dummy implements AdapterInterface
 {
+
     /**
      * @param TransportInterface $transport
      * @return $this
