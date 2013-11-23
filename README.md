@@ -5,4 +5,4 @@ This is a very old project I was working on in 2010.
 For educational purposes only (for now).
 
 
-![Printer - Posnet Temo HS EJ](https://raw.github.com/jkobus/posnet-thermal-php/tree/master/docs/temo-hs-ej-printer.png)
+![Printer - Posnet Temo HS EJ](https://raw.github.com/jkobus/posnet-thermal-php/master/docs/temo-hs-ej-printer.png)
