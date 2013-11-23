@@ -9,7 +9,13 @@
         }
     ],
     "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": {
+            "Posnet": "./src"
+        }
+    },
     "require": {
-
+        "phpunit/phpunit": "~3.7",
+        "jkobus/qa-tools": "*"
     }
 }

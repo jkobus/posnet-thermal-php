@@ -1,2 +1,5 @@
-vendor
 .idea
+vendor
+build/logs/*
+!build/logs/.gitkeep
+composer.lock
