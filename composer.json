@@ -1,6 +1,6 @@
 {
     "name": "jkobus/posnet-thermal",
-    "description": "PHP library for handling fiscal printers using POSNET THERMAL protocol",
+    "description": "Communication library in PHP written for fiscal printers using POSNET THERMAL protocol",
     "license": "BSD-3-Clause",
     "authors": [
         {

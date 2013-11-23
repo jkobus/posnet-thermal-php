@@ -1,3 +1,5 @@
+#Library for fiscal printers using Posnet Thermal protocol (work in progress)
+
 This is a very old project I was working on in 2010.
 Code looks like crap.
 
