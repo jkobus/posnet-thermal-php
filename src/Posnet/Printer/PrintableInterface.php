@@ -1,8 +1,8 @@
 <?php
 
-namespace Posnet;
+namespace Posnet\Printer;
 
-use Posnet\Adapter\AdapterInterface;
+use Posnet\Printer\Adapter\AdapterInterface;
 
 /**
  * Represents printable entity

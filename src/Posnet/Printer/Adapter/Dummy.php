@@ -1,14 +1,20 @@
 <?php
 
-namespace Posnet\Adapter;
+namespace Posnet\Printer\Adapter;
 
-use Posnet\Transport\TransportInterface;
+use Posnet\Printer\Transport\TransportInterface;
 
-/**
- * Posnet Protocol Adapter
- */
-class Posnet implements AdapterInterface
+class Dummy implements AdapterInterface
 {
+
+    /**
+     * @param TransportInterface $transport
+     * @return $this
+     */
+    public function setTransport(TransportInterface $transport)
+    {
+
+    }
 
     public function isOnline()
     {
@@ -33,14 +39,5 @@ class Posnet implements AdapterInterface
     public function isInTestMode()
     {
         // TODO: Implement isInTestMode() method.
-    }
-
-    /**
-     * @param TransportInterface $transport
-     * @return $this
-     */
-    public function setTransport(TransportInterface $transport)
-    {
-        // TODO: Implement setTransport() method.
     }
 }

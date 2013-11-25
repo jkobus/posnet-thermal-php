@@ -1,8 +1,8 @@
 <?php
 
-namespace Posnet\Adapter;
+namespace Posnet\Printer\Adapter;
 
-use Posnet\Transport\TransportAwareInterface;
+use Posnet\Printer\Transport\TransportAwareInterface;
 
 /**
  * Crafts packets so the printer can read them

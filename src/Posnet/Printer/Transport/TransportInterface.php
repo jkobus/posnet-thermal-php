@@ -1,9 +1,9 @@
 <?php
 
-namespace Posnet\Transport;
+namespace Posnet\Printer\Transport;
 
 /**
- * Enables transport of packets to a printer
+ * Transports packets to a printer
  */
 interface TransportInterface
 {

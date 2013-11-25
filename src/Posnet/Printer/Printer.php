@@ -1,10 +1,10 @@
 <?php
 
-namespace Posnet;
+namespace Posnet\Printer;
 
-use Posnet\Adapter\AdapterInterface;
-use Posnet\Transport\TransportAwareInterface;
-use Posnet\Transport\TransportInterface;
+use Posnet\Printer\Adapter\AdapterInterface;
+use Posnet\Printer\Transport\TransportAwareInterface;
+use Posnet\Printer\Transport\TransportInterface;
 
 /**
  * Represent the printer
@@ -22,7 +22,7 @@ class Printer implements TransportAwareInterface
     protected $transport;
 
     /**
-     * @param \Posnet\Adapter\AdapterInterface $adapter
+     * @param AdapterInterface $adapter
      */
     public function setAdapter(AdapterInterface $adapter)
     {
@@ -30,7 +30,7 @@ class Printer implements TransportAwareInterface
     }
 
     /**
-     * @return \Posnet\Adapter\AdapterInterface
+     * @return AdapterInterface
      */
     public function getAdapter()
     {
@@ -49,7 +49,7 @@ class Printer implements TransportAwareInterface
     }
 
     /**
-     * @return \Posnet\Transport\TransportInterface
+     * @return \Posnet\Printer\Transport\TransportInterface
      */
     public function getTransport()
     {

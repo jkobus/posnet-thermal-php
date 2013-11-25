@@ -1,23 +1,21 @@
 <?php
 
-namespace Posnet\Adapter;
+namespace Posnet\Printer\Adapter;
 
 use DateTime;
-use Posnet\Transport\TransportInterface;
+use Posnet\Printer\Transport\TransportInterface;
 
 /**
  * Thermal Protocol Adapter
  */
-class Thermal implements AdapterInterface
+class Posnet implements AdapterInterface
 {
     /**
      * @param TransportInterface $transport
      * @return $this
      */
     public function setTransport(TransportInterface $transport)
-    {
-
-    }
+    {}
 
     public function isOnline()
     {}
@@ -35,9 +33,7 @@ class Thermal implements AdapterInterface
     {}
 
     public function isInTestMode()
-    {
-        // TODO: Implement isInTestMode() method.
-    }
+    {}
 
     /**
      * In fiscal mode the scope of clock regulation is limited to 1 hour, time can be changed once a day.
@@ -72,13 +68,11 @@ class Thermal implements AdapterInterface
      * @param DateTime $date
      */
     public function setVatRates($a = null, $b = null, $c = null, $d = null, $e = null, $f = null, DateTime $date = null)
-    {
-    }
+    {}
 
     public function getVatRates(){}
 
     public function test()
-    {
-    }
+    {}
 
 }

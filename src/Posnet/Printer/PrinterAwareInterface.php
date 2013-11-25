@@ -1,6 +1,6 @@
 <?php
 
-namespace Posnet;
+namespace Posnet\Printer;
 
 /**
  * Represents printer-aware entity

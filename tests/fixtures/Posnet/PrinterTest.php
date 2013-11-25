@@ -2,8 +2,9 @@
 
 namespace Posnet;
 
-use Posnet\Adapter\Thermal;
-use Posnet\Transport\Tcp;
+use Posnet\Printer\Adapter\Posnet;
+use Posnet\Printer\Printer;
+use Posnet\Printer\Transport\NetworkSocket;
 
 class PrinterTest extends \PHPUnit_Framework_TestCase
 {
@@ -17,16 +18,16 @@ class PrinterTest extends \PHPUnit_Framework_TestCase
     public function testSetTransport()
     {
         $printer = new Printer();
-        $printer->setAdapter(new Thermal());
-        $printer->setTransport(new Tcp('localhost', 200));
-        $this->assertInstanceOf('Posnet\Transport\TransportInterface', $printer->getTransport());
+        $printer->setAdapter(new Posnet());
+        $printer->setTransport(new NetworkSocket('localhost', 200));
+        $this->assertInstanceOf('Posnet\Printer\Transport\TransportInterface', $printer->getTransport());
     }
 
     public function testSetAdapter()
     {
         $printer = new Printer();
-        $printer->setAdapter(new Thermal());
-        $this->assertInstanceOf('Posnet\Adapter\AdapterInterface', $printer->getAdapter());
+        $printer->setAdapter(new Posnet());
+        $this->assertInstanceOf('Posnet\Printer\Adapter\AdapterInterface', $printer->getAdapter());
     }
 
 }

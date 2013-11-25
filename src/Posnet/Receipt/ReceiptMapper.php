@@ -2,10 +2,9 @@
 
 namespace Posnet\Receipt;
 
-use Posnet\Adapter\AdapterInterface;
-use Printer\Mapper\MapperInterface;
+use Posnet\Printer\Adapter\AdapterInterface;
 
-class ReceiptMapper implements MapperInterface
+class ReceiptMapper
 {
     /**
      * @param AdapterInterface $adapter

@@ -1,6 +1,6 @@
 <?php
 
-namespace Posnet\Transport;
+namespace Posnet\Printer\Transport;
 
 /**
  * Abstract transport
