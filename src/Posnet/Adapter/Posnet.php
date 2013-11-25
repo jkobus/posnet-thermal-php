@@ -5,18 +5,10 @@ namespace Posnet\Adapter;
 use Posnet\Transport\TransportInterface;
 
 /**
- * Thermal Protocol Adapter
+ * Posnet Protocol Adapter
  */
-class Thermal implements AdapterInterface
+class Posnet implements AdapterInterface
 {
-    /**
-     * @param TransportInterface $transport
-     * @return $this
-     */
-    public function setTransport(TransportInterface $transport)
-    {
-
-    }
 
     public function isOnline()
     {
@@ -41,5 +33,14 @@ class Thermal implements AdapterInterface
     public function isInTestMode()
     {
         // TODO: Implement isInTestMode() method.
+    }
+
+    /**
+     * @param TransportInterface $transport
+     * @return $this
+     */
+    public function setTransport(TransportInterface $transport)
+    {
+        // TODO: Implement setTransport() method.
     }
 }

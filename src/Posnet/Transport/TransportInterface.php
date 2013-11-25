@@ -11,9 +11,10 @@ interface TransportInterface
      * Set timeout in seconds after which the transport
      * will give up on sending the data
      *
-     * @return int
+     * @param int $timeout
+     * @return $this
      */
-    public function setTimeout();
+    public function setTimeout($timeout);
 
     /**
      * Receive data from a printer
