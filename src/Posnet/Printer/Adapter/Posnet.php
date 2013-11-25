@@ -30,7 +30,17 @@ class Posnet implements AdapterInterface
     {}
 
     public function isInFiscalMode()
-    {}
+    {
+        // [STX]sfsk[TAB]#[CRC][ETX]
+        // 02sfsk09#0003
+    }
+
+    protected function buildFrame($mnemonic, array $agruments = array())
+    {
+        //
+    }
+
+
 
     public function isInTestMode()
     {}
