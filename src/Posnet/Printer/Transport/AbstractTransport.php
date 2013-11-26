@@ -7,12 +7,15 @@ namespace Posnet\Printer\Transport;
  */
 abstract class AbstractTransport implements TransportInterface
 {
-
     /**
      * @var int
      */
     protected $timeout;
 
+    /**
+     * @param int $timeout
+     * @return $this
+     */
     public function setTimeout($timeout)
     {
         $this->timeout = $timeout;
@@ -27,8 +30,14 @@ abstract class AbstractTransport implements TransportInterface
         return $this->timeout;
     }
 
-    public abstract function receive();
-
+    /**
+     * {@inheritdoc}
+     */
     public abstract function send($data);
+
+    /**
+     * {@inheritdoc}
+     */
+    public abstract function receive($length = 1024);
 
 }

@@ -7,7 +7,7 @@ use Skajdo\Crc16CCIT;
 /**
  * Command frame
  */
-class PrinterFrame
+class Frame
 {
     const STX = "\x02";
 
@@ -52,7 +52,7 @@ class PrinterFrame
 
     /**
      * @param string $mnemonic
-     * @return PrinterFrame
+     * @return Frame
      */
     public function setMnemonic($mnemonic)
     {
@@ -72,7 +72,7 @@ class PrinterFrame
     /**
      * @param array $arguments
      * @throws \InvalidArgumentException
-     * @return PrinterFrame
+     * @return Frame
      */
     public function setArguments(array $arguments)
     {
@@ -97,7 +97,7 @@ class PrinterFrame
     /**
      * @param string $token
      * @throws \InvalidArgumentException
-     * @return PrinterFrame
+     * @return Frame
      */
     public function setToken($token)
     {
