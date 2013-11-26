@@ -2,7 +2,8 @@
 
 namespace Posnet;
 
-use Posnet\Printer\Adapter\Posnet;
+
+use Posnet\Printer\Adapter\Posnet\Posnet;
 use Posnet\Printer\Printer;
 use Posnet\Printer\Transport\NetworkSocket;
 

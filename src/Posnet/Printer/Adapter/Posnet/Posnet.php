@@ -1,15 +1,23 @@
 <?php
 
-namespace Posnet\Printer\Adapter;
+namespace Posnet\Printer\Adapter\Posnet;
 
 use DateTime;
+use Posnet\Adapter\Posnet\PrinterFrame;
+use Posnet\Printer\Adapter\AbstractAdapter;
 use Posnet\Printer\Transport\TransportInterface;
 
 /**
  * Thermal Protocol Adapter
  */
-class Posnet implements AdapterInterface
+class Posnet extends AbstractAdapter
 {
+
+    protected function send(PrinterFrame $frame)
+    {
+        $this->getTransport()->send($frame->build());
+    }
+
     /**
      * @param TransportInterface $transport
      * @return $this
@@ -31,16 +39,8 @@ class Posnet implements AdapterInterface
 
     public function isInFiscalMode()
     {
-        // [STX]sfsk[TAB]#[CRC][ETX]
-        // 02sfsk09#0003
+        $this->send(new PrinterFrame('sfsx'));
     }
-
-    protected function buildFrame($mnemonic, array $agruments = array())
-    {
-        //
-    }
-
-
 
     public function isInTestMode()
     {}

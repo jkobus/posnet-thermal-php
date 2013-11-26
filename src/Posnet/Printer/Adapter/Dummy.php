@@ -4,7 +4,7 @@ namespace Posnet\Printer\Adapter;
 
 use Posnet\Printer\Transport\TransportInterface;
 
-class Dummy implements AdapterInterface
+class Dummy extends AbstractAdapter
 {
 
     /**
