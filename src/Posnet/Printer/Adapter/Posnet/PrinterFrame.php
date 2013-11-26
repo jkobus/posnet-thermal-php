@@ -1,23 +1,23 @@
 <?php
 
-namespace Posnet\Adapter\Posnet;
+namespace Posnet\Printer\Adapter\Posnet;
 
-use Posnet\Adapter\Posnet\HelperMethods\HelperMethods;
+use Skajdo\Crc16CCIT;
 
 /**
  * Command frame
  */
 class PrinterFrame
 {
-    const STX = 0x02;
+    const STX = "\x02";
 
-    const TAB = 0x09;
+    const TAB = "\x09";
 
-    const ETX = 0x03;
+    const ETX = "\x03";
 
-    const HASH = 0x23;
+    const HASH = "\x23";
 
-    const AT = 0x40;
+    const AT = "\x40";
 
     /**
      * Printer command
@@ -32,7 +32,7 @@ class PrinterFrame
     protected $arguments = array();
 
     /**
-     * @var array
+     * @var string
      */
     protected $token = null;
 
@@ -43,9 +43,11 @@ class PrinterFrame
      */
     function __construct($mnemonic, $arguments = array(), $token = null)
     {
-        $this->mnemonic = $mnemonic;
-        $this->arguments = $arguments;
-        $this->token = $token;
+        $this->setMnemonic($mnemonic);
+        $this->setArguments($arguments);
+        if($token !== null){
+            $this->setToken($token);
+        }
     }
 
     /**
@@ -69,12 +71,18 @@ class PrinterFrame
 
     /**
      * @param array $arguments
+     * @throws \InvalidArgumentException
      * @return PrinterFrame
      */
     public function setArguments(array $arguments)
     {
-        $this->arguments = $arguments;
+        foreach($arguments as $name => $value){
+            if(strlen($name) != 2){
+                throw new \InvalidArgumentException(sprintf('Invalid argument name length: %s', $name));
+            }
+        }
 
+        $this->arguments = $arguments;
         return $this;
     }
 
@@ -87,18 +95,21 @@ class PrinterFrame
     }
 
     /**
-     * @param array $token
+     * @param string $token
+     * @throws \InvalidArgumentException
      * @return PrinterFrame
      */
     public function setToken($token)
     {
+        if(preg_match('#^\d{4}$#', $token) !== 1){
+            throw new \InvalidArgumentException('Token must contain 4 digits');
+        }
         $this->token = $token;
-
         return $this;
     }
 
     /**
-     * @return array
+     * @return string
      */
     public function getToken()
     {
@@ -108,31 +119,24 @@ class PrinterFrame
     /**
      * Build a frame
      *
+     * @throws \InvalidArgumentException
      * @return string
      */
     public function build()
     {
         $args = null;
-        foreach($this->arguments as $name => $value){
+        foreach($this->getArguments() as $name => $value){
             $args .= $name . $value . self::TAB;
         }
 
         $token = null;
-        if($this->token !== null){
-            $token = self::AT . $this->token . self::TAB;
+        if($this->getToken() !== null){
+            $token = self::AT . $this->getToken() . self::TAB;
         }
 
-        $frameBody = $this->mnemonic . self::TAB . $args . $token;
-        $crc16 = HelperMethods::crc16($frameBody);
+        $frameBody = $this->getMnemonic() . self::TAB . $args . $token;
+        $crc16 = Crc16CCIT::calculate($frameBody);
         $frame = self::STX . $frameBody . self::HASH . $crc16 . self::ETX;
         return $frame;
     }
-//
-//    /**
-//     * @return string
-//     */
-//    public function __toString()
-//    {
-//        return $this->build();
-//    }
 }

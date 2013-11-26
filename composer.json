@@ -16,6 +16,7 @@
     },
     "require": {
         "phpunit/phpunit": "~3.7",
-        "skajdo/stream": "*"
+        "skajdo/stream": "*",
+        "skajdo/crc16-ccit": "*"
     }
 }

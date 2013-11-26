@@ -3,8 +3,8 @@
 namespace Posnet\Printer\Adapter\Posnet;
 
 use DateTime;
-use Posnet\Adapter\Posnet\PrinterFrame;
 use Posnet\Printer\Adapter\AbstractAdapter;
+use Posnet\Printer\Adapter\Posnet\PrinterFrame;
 use Posnet\Printer\Transport\TransportInterface;
 
 /**
