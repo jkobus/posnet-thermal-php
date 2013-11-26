@@ -31,7 +31,7 @@ class ResponseFrame
 
     /**
      * @param string $mnemonic
-     * @return Frame
+     * @return RequestFrame
      * @return $this
      */
     public function setMnemonic($mnemonic)

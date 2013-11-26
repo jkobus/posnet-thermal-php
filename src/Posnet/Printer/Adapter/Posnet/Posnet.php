@@ -4,7 +4,7 @@ namespace Posnet\Printer\Adapter\Posnet;
 
 use DateTime;
 use Posnet\Printer\Adapter\AbstractAdapter;
-use Posnet\Printer\Adapter\Posnet\Frame;
+use Posnet\Printer\Adapter\Posnet\RequestFrame;
 use Posnet\Printer\Transport\TransportInterface;
 
 /**
@@ -16,11 +16,11 @@ class Posnet extends AbstractAdapter
      * Push frame to the transport adapter and return decoded response
      * or throw exception if response returned an error
      *
-     * @param Frame $frame
+     * @param RequestFrame $frame
      * @throws \RuntimeException
      * @return ResponseFrame
      */
-    protected function push(Frame $frame)
+    protected function push(RequestFrame $frame)
     {
         $raw = $this->getTransport()->send($frame->build());
         $response = ResponseFrame::decode($raw);
@@ -50,7 +50,7 @@ class Posnet extends AbstractAdapter
 
     public function isInFiscalMode()
     {
-        $response = $this->push(new Frame('sfsx'));
+        $response = $this->push(new RequestFrame('sfsx'));
     }
 
     public function isInTestMode()
