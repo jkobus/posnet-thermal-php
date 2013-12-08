@@ -7,48 +7,27 @@ use Posnet\Printer\Transport\SerialPort;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$modeCommand = 'mode COM5 baud=115200 parity=n data=8 stop=1 rts=on to=off';
+$comPort = 'COM3';
+
+$modeCommand = 'mode '.$comPort.' baud=115200 parity=n data=8 stop=1 rts=on to=off';
 exec($modeCommand);
 
-//
-//
-//$dailyReport = new \Posnet\Report\DailyReport();
-//$reportPrinter = new \Posnet\Report\ReportPrinter($dailyReport);
-//
-//$adapter = new \Posnet\Printer\Adapter\Posnet\PosnetAdapter();
-//$connector = new \Posnet\Printer\Connector\SerialConnector('COM3');
-//
-//$printer = new \Posnet\Printer\Printer($adapter, $connector);
-////$printer->doPrint($reportPrinter);
-//
-//
-//$frame = new RequestFrame('sdev');
-//$frame->setAsynchronous(true);
-//
-//$adapter->push($frame);
-//
-
-
-//$connector = new \Posnet\Printer\Connector\SerialConnector('COM2');
-
-//$frame = new RequestFrame('!sdev');
 $frame = new RequestFrame('!sdev');
-$content = $frame->build() . PHP_EOL;
-
-echo 'Frame: ' . $content . PHP_EOL;
-$handle = fopen('\\\\.\\COM3', 'r+b');
-
-$written = fwrite($handle, $content, strlen($content));
-
-echo 'Written: ' . $written . PHP_EOL;
-echo 'Reading ...' . PHP_EOL;
-
-//stream_set_blocking($handle, 0);
+$handle = fopen('\\\\.\\' . $comPort, 'r+b');
+$written = fwrite($handle, $frame->build());
 sleep(1);
-$buffer = fread($handle, 8);
-var_dump($buffer);
-fclose($handle);
-die;
 
-//echo 'Buffer: ' . $buffer . PHP_EOL;
-//echo 'Complete !';
+$buffer = '';
+while(($char = fread($handle, 1)) !== false){
+
+    echo '.';
+
+    $buffer .= $char;
+    if($char == "\x03"){
+        break;
+    }
+}
+
+
+fclose($handle);
+var_dump($buffer);
