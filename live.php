@@ -12,7 +12,14 @@ $comPort = 'COM3';
 $modeCommand = 'mode '.$comPort.' baud=115200 parity=n data=8 stop=1 rts=on to=off';
 exec($modeCommand);
 
-$frame = new RequestFrame('!sdev');
+//$frame = new RequestFrame('!sdev');
+//$frame = new RequestFrame('hdrget');
+//$frame = new RequestFrame('papersensget');
+$frame = new RequestFrame('currrateget');
+$frame = new RequestFrame('rtcget');
+$frame = new RequestFrame('rtcset', array('da' => date('Y-m-d;H:i')));
+$frame = new RequestFrame('vatget');
+
 $handle = fopen('\\\\.\\' . $comPort, 'r+b');
 $written = fwrite($handle, $frame->build());
 sleep(1);
