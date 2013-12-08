@@ -2,34 +2,34 @@
 
 namespace Posnet\Printer\Adapter;
 
-use Posnet\Printer\Transport\TransportInterface;
+use Posnet\Printer\Connector\ConnectorInterface;
 
 /**
- * Abstract adapter
+ * Class AbstractAdapter
+ *
+ * @author Jacek Kobus <kobus.jacek@gmail.com>
  */
 abstract class AbstractAdapter implements AdapterInterface
 {
     /**
-     * @var TransportInterface
+     * @var ConnectorInterface
      */
-    protected $transport;
+    protected $connector;
 
     /**
-     * @param TransportInterface $transport
-     * @return $this
+     * {@inheritdoc}
      */
-    public function setTransport(TransportInterface $transport)
+    public function setConnector(ConnectorInterface $connector)
     {
-        $this->transport = $transport;
+        $this->connector = $connector;
         return $this;
     }
 
     /**
-     * @return TransportInterface
+     * {@inheritdoc}
      */
-    public function getTransport()
+    public function getConnector()
     {
-        return $this->transport;
+        return $this->connector;
     }
-
 }

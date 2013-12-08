@@ -3,30 +3,49 @@
 namespace Posnet\Printer;
 
 use Posnet\Printer\Adapter\AdapterInterface;
-use Posnet\Printer\Transport\TransportAwareInterface;
-use Posnet\Printer\Transport\TransportInterface;
+use Posnet\Printer\Connector\ConnectorInterface;
 
 /**
- * Represent the printer
+ * Class Printer
+ *
+ * @author Jacek Kobus <kobus.jacek@gmail.com>
  */
-class Printer implements TransportAwareInterface
+class Printer implements PrinterInterface
 {
+    /**
+     * @var ConnectorInterface
+     */
+    protected $connector;
+
     /**
      * @var AdapterInterface
      */
     protected $adapter;
 
     /**
-     * @var TransportInterface
+     * @param AdapterInterface $adapter
+     * @param ConnectorInterface $connector
      */
-    protected $transport;
+    function __construct(AdapterInterface $adapter = null, ConnectorInterface $connector = null)
+    {
+        if($adapter){
+            $this->setAdapter($adapter);
+        }
+        if($connector){
+            $this->setConnector($connector);
+        }
+    }
 
     /**
-     * @param AdapterInterface $adapter
+     * {@inheritdoc}
      */
     public function setAdapter(AdapterInterface $adapter)
     {
         $this->adapter = $adapter;
+        if($this->getConnector() !== null){
+            $adapter->setConnector($this->getConnector());
+        }
+        return $this;
     }
 
     /**
@@ -34,86 +53,55 @@ class Printer implements TransportAwareInterface
      */
     public function getAdapter()
     {
-        if($this->adapter !== null && $this->getTransport() !== null){
-            $this->adapter->setTransport($this->getTransport());
-        }
         return $this->adapter;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setTransport(TransportInterface $transport)
+    public function setConnector(ConnectorInterface $connector)
     {
-        $this->transport = $transport;
+        $this->connector = $connector;
+        if($this->getAdapter() !== null){
+            $this->getAdapter()->setConnector($connector);
+        }
+        return $this;
     }
 
     /**
-     * @return \Posnet\Printer\Transport\TransportInterface
+     * @return ConnectorInterface
      */
-    public function getTransport()
+    public function getConnector()
     {
-        return $this->transport;
+        return $this->connector;
     }
 
+
     /**
-     * Tell if printer is online
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function isOnline()
     {
-        return $this->getAdapter()->isOnline();
+        // @todo Implement isOnline() method.
     }
 
     /**
-     * Tell if printer is ready to work
-     *
-     * @return bool
-     */
-    public function isReady()
-    {
-        return $this->getAdapter()->isReady();
-    }
-
-    /**
-     * Tell if printer is busy doing transaction
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function isBusy()
     {
-        return $this->getAdapter()->isBusy();
+        // @todo Implement isBusy() method.
     }
 
     /**
-     * Printer is processing REAL transactions
-     *
-     * @return bool
-     */
-    public function isInFiscalMode()
-    {
-        return $this->getAdapter()->isInFiscalMode();
-    }
-
-    /**
-     * Printer is in test mode
-     *
-     * @return bool
-     */
-    public function isInTestMode()
-    {
-        return $this->getAdapter()->isInTestMode();
-    }
-
-    /**
-     * Transform and send given entity to the printer
+     * Print
      *
      * @param PrintableInterface $printable
-     * @return void
+     * @return bool
      */
     public function doPrint(PrintableInterface $printable)
     {
-        $printable->doPrint($this->getAdapter());
+        $isSuccessful = $printable->doPrint($this->getAdapter());
+        return (bool)$isSuccessful;
     }
 }

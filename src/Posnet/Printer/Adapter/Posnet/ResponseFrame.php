@@ -2,8 +2,6 @@
 
 namespace Posnet\Printer\Adapter\Posnet;
 
-use Skajdo\Crc16CCIT;
-
 /**
  * Response frame
  */
@@ -83,6 +81,6 @@ class ResponseFrame
      */
     public static function decode($raw){
 
-        return new self('asd');
+        var_dump($raw);
     }
 }

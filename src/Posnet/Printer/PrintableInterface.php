@@ -11,7 +11,7 @@ interface PrintableInterface
 {
     /**
      * @param AdapterInterface $adapter
-     * @return $this
+     * @return bool Return true if print succeeded
      */
     public function doPrint(AdapterInterface $adapter);
 }

@@ -37,6 +37,11 @@ class RequestFrame
     protected $token = null;
 
     /**
+     * @var bool bool
+     */
+    protected $asynchronous = false;
+
+    /**
      * @param string $mnemonic
      * @param array  $arguments
      * @param string $token
@@ -67,6 +72,30 @@ class RequestFrame
     public function getMnemonic()
     {
         return $this->mnemonic;
+    }
+
+    /**
+     * @param boolean $asynchronous
+     */
+    public function setAsynchronous($asynchronous)
+    {
+        $this->asynchronous = $asynchronous;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getAsynchronous()
+    {
+        return $this->asynchronous;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAsynchronous()
+    {
+        return $this->getAsynchronous() === true;
     }
 
     /**
@@ -134,9 +163,14 @@ class RequestFrame
             $token = self::AT . $this->getToken() . self::TAB;
         }
 
-        $frameBody = $this->getMnemonic() . self::TAB . $args . $token;
+        $frameBody = ($this->isAsynchronous()?'!':'') . $this->getMnemonic() . self::TAB . $args . $token;
         $crc16 = Crc16CCIT::calculate($frameBody);
         $frame = self::STX . $frameBody . self::HASH . $crc16 . self::ETX;
         return $frame;
+    }
+
+    public function __toString()
+    {
+        return (string)$this->build();
     }
 }
